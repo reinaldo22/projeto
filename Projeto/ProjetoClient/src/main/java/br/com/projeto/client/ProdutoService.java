@@ -4,17 +4,20 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
+import br.com.projeto.excecao.ServiceException;
 import br.com.projeto.model.Produto;
 
 @Remote
 public interface ProdutoService {
-	public void inserir(Produto produto);
+	public static final String NAME = "global/ProjetoService/ProdutoServiceImpl!br.com.projeto.client.ProdutoService";
+	
+	public void inserir(Produto produto) throws ServiceException;
 
-	public Integer contar();
+	public Integer contar() throws ServiceException;
 
-	public List<Produto> listar(int primeiro, int tamanho);
+	public List<Produto> listar(int primeiro, int tamanho) throws ServiceException;
 
-	public void editar(Produto produto);
+	public void editar(Produto produto) throws ServiceException;
 
-	public void excluir(Long codigo);
+	public void excluir(Long codigo) throws ServiceException;
 }

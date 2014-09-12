@@ -10,10 +10,10 @@
         <dependent-module archiveName="ProjetoPersistence-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ProjetoPersistence/ProjetoPersistence">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ProjetoUtil-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ProjetoUtil/ProjetoUtil">
+        <dependent-module archiveName="ProjetoClient-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ProjetoClient/ProjetoClient">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ProjetoClient-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ProjetoClient/ProjetoClient">
+        <dependent-module archiveName="ProjetoUtil-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ProjetoUtil/ProjetoUtil">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="java-output-path" value="/ProjetoService/target/classes"/>

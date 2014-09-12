@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import br.com.projeto.excecao.PSTException;
 import br.com.projeto.factory.ConnectionFactory;
@@ -14,8 +15,11 @@ import br.com.projeto.util.PSTUtil;
 import br.com.projeto.util.ProjetoUtil;
 
 public class ProdutoDAOImpl implements ProdutoDAO {
+	private static Logger logger = Logger.getLogger(ProdutoDAOImpl.class
+			.getName());
+	
 	@Override
-	public List<Produto> listar(int primeiro, int tamanho) {
+	public List<Produto> listar(int primeiro, int tamanho) throws PSTException {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT p.codigo, p.descricao, p.preco, p.quantidade ");
 		sql.append("FROM produtos p ");
@@ -50,10 +54,11 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 
 				produtos.add(produto);
 			}
-
+			
+			logger.info(ProjetoUtil.getMessage("dao.produto.listar"));
 		} catch (SQLException ex) {
 			throw new PSTException(
-					ProjetoUtil.getMessage("dao.erro.produto.listar"), ex);
+					ProjetoUtil.getMessage("dao.produto.listar.erro"), ex);
 		} finally {
 			PSTUtil.fechar(resultado);
 			PSTUtil.fechar(comando);
@@ -64,7 +69,7 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 	}
 
 	@Override
-	public int contar() {
+	public int contar() throws PSTException {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT COUNT(*) ");
 		sql.append("FROM produtos p ");
@@ -83,9 +88,11 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 			if (resultado.next()) {
 				total = resultado.getInt(1);
 			}
+			
+			logger.info(ProjetoUtil.getMessage("dao.produto.contar"));
 		} catch (SQLException ex) {
 			throw new PSTException(
-					ProjetoUtil.getMessage("dao.erro.produto.contar"), ex);
+					ProjetoUtil.getMessage("dao.produto.contar.erro"), ex);
 		} finally {
 			PSTUtil.fechar(resultado);
 			PSTUtil.fechar(comando);
@@ -96,7 +103,7 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 	}
 
 	@Override
-	public void inserir(Produto produto) {
+	public void inserir(Produto produto) throws PSTException {
 		StringBuilder sql = new StringBuilder();
 		sql.append("INSERT INTO produtos ");
 		sql.append("(descricao, preco, quantidade) ");
@@ -114,9 +121,11 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 			comando.setShort(3, produto.getQuantidade());
 
 			comando.executeUpdate();
+			
+			logger.info(ProjetoUtil.getMessage("dao.produto.inserir"));
 		} catch (SQLException ex) {
 			throw new PSTException(
-					ProjetoUtil.getMessage("dao.erro.produto.inserir"), ex);
+					ProjetoUtil.getMessage("dao.produto.inserir.erro"), ex);
 		} finally {
 			PSTUtil.fechar(comando);
 			PSTUtil.fechar(conexao);
@@ -124,7 +133,7 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 	}
 
 	@Override
-	public void editar(Produto produto) {
+	public void editar(Produto produto) throws PSTException {
 		StringBuilder sql = new StringBuilder();
 		sql.append("UPDATE produtos ");
 		sql.append("SET descricao = ?, preco = ?, quantidade = ? ");
@@ -143,9 +152,11 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 			comando.setLong(4, produto.getCodigo());
 
 			comando.executeUpdate();
+			
+			logger.info(ProjetoUtil.getMessage("dao.produto.editar"));
 		} catch (SQLException ex) {
 			throw new PSTException(
-					ProjetoUtil.getMessage("dao.erro.produto.editar"), ex);
+					ProjetoUtil.getMessage("dao.produto.editar.erro"), ex);
 		} finally {
 			PSTUtil.fechar(comando);
 			PSTUtil.fechar(conexao);
@@ -153,7 +164,7 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 	}
 
 	@Override
-	public void excluir(Long codigo) {
+	public void excluir(Long codigo) throws PSTException {
 		StringBuilder sql = new StringBuilder();
 		sql.append("DELETE FROM produtos ");
 		sql.append("WHERE codigo = ? ");
@@ -168,9 +179,11 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 			comando.setLong(1, codigo);
 
 			comando.executeUpdate();
+			
+			logger.info(ProjetoUtil.getMessage("dao.produto.excluir"));
 		} catch (SQLException ex) {
 			throw new PSTException(
-					ProjetoUtil.getMessage("dao.erro.produto.excluir"), ex);
+					ProjetoUtil.getMessage("dao.produto.excluir.erro"), ex);
 		} finally {
 			PSTUtil.fechar(comando);
 			PSTUtil.fechar(conexao);

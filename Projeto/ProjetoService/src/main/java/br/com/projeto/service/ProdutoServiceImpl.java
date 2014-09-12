@@ -2,6 +2,7 @@ package br.com.projeto.service;
 
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.validation.ConstraintViolation;
@@ -11,18 +12,23 @@ import javax.validation.ValidatorFactory;
 
 import br.com.projeto.client.ProdutoService;
 import br.com.projeto.dao.ProdutoDAOImpl;
+import br.com.projeto.excecao.PSTException;
 import br.com.projeto.excecao.ServiceException;
 import br.com.projeto.model.Produto;
+import br.com.projeto.util.ProjetoUtil;
 
 @Stateless
 public class ProdutoServiceImpl implements ProdutoService {
+	private static Logger logger = Logger.getLogger(ProdutoServiceImpl.class
+			.getName());
 
 	@Override
 	public Integer contar() {
 		Integer total = 0;
 		try {
 			total = new ProdutoDAOImpl().contar();
-		} catch (RuntimeException ex) {
+			logger.info(ProjetoUtil.getMessage("service.produto.contar"));
+		} catch (PSTException ex) {
 			throw new ServiceException(ex);
 		}
 		return total;
@@ -33,7 +39,8 @@ public class ProdutoServiceImpl implements ProdutoService {
 		List<Produto> produtos = null;
 		try {
 			produtos = new ProdutoDAOImpl().listar(primeiro, tamanho);
-		} catch (RuntimeException ex) {
+			logger.info(ProjetoUtil.getMessage("service.produto.listar"));
+		} catch (PSTException ex) {
 			throw new ServiceException(ex);
 		}
 		return produtos;
@@ -44,7 +51,8 @@ public class ProdutoServiceImpl implements ProdutoService {
 		try {
 			validar(produto);
 			new ProdutoDAOImpl().inserir(produto);
-		} catch (RuntimeException ex) {
+			logger.info(ProjetoUtil.getMessage("service.produto.inserir"));
+		} catch (PSTException ex) {
 			throw new ServiceException(ex);
 		}
 	}
@@ -52,8 +60,10 @@ public class ProdutoServiceImpl implements ProdutoService {
 	@Override
 	public void editar(Produto produto) {
 		try {
+			validar(produto);
 			new ProdutoDAOImpl().editar(produto);
-		} catch (RuntimeException ex) {
+			logger.info(ProjetoUtil.getMessage("service.produto.editar"));
+		} catch (PSTException ex) {
 			throw new ServiceException(ex);
 		}
 	}
@@ -62,12 +72,13 @@ public class ProdutoServiceImpl implements ProdutoService {
 	public void excluir(Long codigo) {
 		try {
 			new ProdutoDAOImpl().excluir(codigo);
-		} catch (RuntimeException ex) {
+			logger.info(ProjetoUtil.getMessage("service.produto.excluir"));
+		} catch (PSTException ex) {
 			throw new ServiceException(ex);
 		}
 	}
 
-	private void validar(Produto produto) {
+	private void validar(Produto produto) throws PSTException {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();
 		Set<ConstraintViolation<Produto>> constraintViolations = validator
@@ -78,7 +89,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 			for (ConstraintViolation<Produto> constraintViolation : constraintViolations) {
 				mensagem.append(constraintViolation.getMessage() + "\n");
 			}
-			throw new RuntimeException(mensagem.toString());
+			throw new PSTException(mensagem.toString());
 		}
 	}
 }

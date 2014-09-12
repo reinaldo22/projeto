@@ -36,6 +36,13 @@
 			<artifactId>ProjetoClient</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		
+		<!-- Camada Client -->
+		<dependency>
+			<groupId>br.com.projeto</groupId>
+			<artifactId>ProjetoUtil</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 	</dependencies>
 
 	<!-- Configurações de Compilação e Execuçao -->

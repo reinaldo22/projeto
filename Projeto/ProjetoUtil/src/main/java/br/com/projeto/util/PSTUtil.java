@@ -4,18 +4,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import br.com.projeto.excecao.PSTException;
+import java.util.logging.Logger;
 
 public class PSTUtil {
+	private static Logger logger = Logger.getLogger(PSTUtil.class.getName());
+
 	public static void fechar(Connection conexao) {
 		if (conexao != null) {
 			try {
 				conexao.close();
+				logger.info(ProjetoUtil.getMessage("pstutil.conexao.fechar"));
 			} catch (SQLException ex) {
-				throw new PSTException(
-						ProjetoUtil.getMessage("pstutil.erro.fecharConexao"),
-						ex);
+				logger.warning(ProjetoUtil
+						.getMessage("pstutil.conexao.fechar.erro"));
 			}
 		}
 	}
@@ -24,10 +25,10 @@ public class PSTUtil {
 		if (comando != null) {
 			try {
 				comando.close();
+				logger.info(ProjetoUtil.getMessage("pstutil.declaracao.fechar"));
 			} catch (SQLException ex) {
-				throw new PSTException(
-						ProjetoUtil.getMessage("pstutil.erro.fecharPreparedStatement"),
-						ex);
+				logger.warning(ProjetoUtil
+						.getMessage("pstutil.declaracao.fechar.erro"));
 			}
 		}
 	}
@@ -36,10 +37,10 @@ public class PSTUtil {
 		if (resultado != null) {
 			try {
 				resultado.close();
+				logger.info(ProjetoUtil.getMessage("pstutil.resultado.fechar"));
 			} catch (SQLException ex) {
-				throw new PSTException(
-						ProjetoUtil.getMessage("pstutil.erro.fecharResultSet"),
-						ex);
+				logger.warning(ProjetoUtil
+						.getMessage("pstutil.resultado.fechar.erro"));
 			}
 		}
 	}

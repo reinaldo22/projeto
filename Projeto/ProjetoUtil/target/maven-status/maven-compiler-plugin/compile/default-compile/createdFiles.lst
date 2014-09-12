@@ -1,7 +1,6 @@
-br\com\projeto\excecao\PSTException.class
 br\com\projeto\util\PSTUtil.class
 br\com\projeto\util\ProjetoUtil.class
 br\com\projeto\excecao\ServiceException.class
-br\com\projeto\enumeracao\ConexaoEnum.class
 br\com\projeto\excecao\WebException.class
+br\com\projeto\excecao\PSTException.class
 br\com\projeto\util\WebUtil.class

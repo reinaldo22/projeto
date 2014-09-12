@@ -22,56 +22,21 @@
 			<artifactId>ProjetoModel</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-		
+
 		<!-- Camada Util -->
 		<dependency>
 			<groupId>br.com.projeto</groupId>
 			<artifactId>ProjetoUtil</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-		
+
 		<!-- Camada Service -->
 		<dependency>
 			<groupId>br.com.projeto</groupId>
 			<artifactId>ProjetoClient</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-
-		<!-- Implementação do JSF -->
-		<dependency>
-			<groupId>org.glassfish</groupId>
-			<artifactId>javax.faces</artifactId>
-			<version>2.2.8</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- Biblioteca de Componentes -->
-		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-			<version>5.0</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- Tema do PrimeFaces -->
-		<dependency>
-			<groupId>org.primefaces.themes</groupId>
-			<artifactId>all-themes</artifactId>
-			<version>1.0.10</version>
-			<scope>compile</scope>
-		</dependency>
 	</dependencies>
-
-	<!-- Repositórios -->
-	<repositories>
-		<!-- Repositório do PrimeFaces -->
-		<repository>
-			<id>prime-repo</id>
-			<name>PrimeFaces Maven Repository</name>
-			<url>http://repository.primefaces.org</url>
-			<layout>default</layout>
-		</repository>
-	</repositories>
 
 	<!-- Configurações de Compilação e Execuçao -->
 	<build>

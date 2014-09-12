@@ -14,6 +14,13 @@
 		<p:messages id="msgGlobal" showSummary="true" showDetail="false"
 			closable="true" />
 
+		<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage library="imagens" name="ajaxloadingbar.gif" />
+		</p:dialog>
+
 		<h:form id="frmProdutosCadastro">
 			<h:panelGrid id="pnlProdutosCadastro" columns="2">
 				<p:outputLabel value="Código:" />
@@ -37,11 +44,11 @@
 
 			<h:panelGrid columns="3">
 				<p:commandButton value="Novo"
-					actionListener="#{produtoBean.novo(evt)}"
+					actionListener="#{produtoBean.novo}"
 					update=":frmProdutosCadastro" />
 				<p:commandButton value="Salvar"
-					actionListener="#{produtoBean.salvar(evt)}"
-					update=":frmProdutosCadastro :frmProdutosListagem :msgGlobal" />
+					actionListener="#{produtoBean.salvar}"
+					update=":frmProdutosCadastro :frmProdutosListagem:tblProdutos :msgGlobal" />
 			</h:panelGrid>
 		</h:form>
 
@@ -51,8 +58,8 @@
 			<h:panelGrid columns="3">
 				<p:outputLabel value="Código/Descrição:" />
 				<p:inputText value="#{produtoBean.pesquisa}" />
-				<p:commandButton value="Buscar" action="#{produtoBean.buscar(evt)}"
-					update="tblProdutos" />
+				<p:commandButton value="Buscar" action="#{produtoBean.buscar}"
+					update="tblProdutos :msgGlobal" />
 			</h:panelGrid>
 
 

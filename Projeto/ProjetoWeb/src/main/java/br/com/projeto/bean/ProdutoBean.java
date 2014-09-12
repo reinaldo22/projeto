@@ -1,13 +1,9 @@
 package br.com.projeto.bean;
 
 import java.io.Serializable;
-import java.util.Properties;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.event.ActionEvent;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 import org.primefaces.model.LazyDataModel;
 
@@ -15,6 +11,7 @@ import br.com.projeto.client.ProdutoService;
 import br.com.projeto.datamodel.ProdutoDataModel;
 import br.com.projeto.excecao.ServiceException;
 import br.com.projeto.model.Produto;
+import br.com.projeto.util.ProjetoUtil;
 import br.com.projeto.util.WebUtil;
 
 @SuppressWarnings("serial")
@@ -35,11 +32,11 @@ public class ProdutoBean implements Serializable {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
-	
+
 	public String getPesquisa() {
 		return pesquisa;
 	}
-	
+
 	public void setPesquisa(String pesquisa) {
 		this.pesquisa = pesquisa;
 	}
@@ -52,25 +49,23 @@ public class ProdutoBean implements Serializable {
 		this.produtosLDM = produtosLDM;
 	}
 
-	public void novo(ActionEvent evt){
+	public void novo() {
 		produto = new Produto();
 	}
-	
-	public void buscar(ActionEvent evt){
+
+	public void buscar() {
 		produtosLDM = new ProdutoDataModel();
 	}
-	
-	public void salvar(ActionEvent evt){
-		try {	
-			Properties prop = new Properties();
-			prop.put("java.naming.factory.initial", "org.apache.openejb.client.RemoteInitialContextFactory");
-			prop.put("java.naming.provider.url", "http://localhost:8080/tomee/ejb");
-			InitialContext ctx = new InitialContext(prop);
-			ProdutoService service = (ProdutoService) ctx.lookup("global/ProjetoService/ProdutoServiceImpl!br.com.projeto.client.ProdutoService");
+
+	public void salvar() {
+		try {
+			ProdutoService service = (ProdutoService) WebUtil
+					.getNamedObject(ProdutoService.NAME);
 			service.inserir(produto);
-			novo(evt);
-			WebUtil.adicionarMensagemSucesso("Produto salvo com sucesso.");
-		} catch (ServiceException | NamingException ex) {
+			novo();
+			WebUtil.adicionarMensagemSucesso(ProjetoUtil
+					.getMessage("bean.produto.salvar"));
+		} catch (ServiceException ex) {
 			WebUtil.adicionarMensagemErro(ex.getMessage());
 		}
 	}

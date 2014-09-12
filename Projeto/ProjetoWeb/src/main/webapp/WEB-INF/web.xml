@@ -12,6 +12,12 @@
 		<welcome-file>index.xhtml</welcome-file>
 	</welcome-file-list>
 
+	<!-- Fase do Projeto -->
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
+	</context-param>
+
 	<!-- Tema do PrimeFaces -->
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
