@@ -14,7 +14,8 @@
 		<p:messages id="msgGlobal" showSummary="true" showDetail="false"
 			closable="true" />
 
-		<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
 
 		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
 			closable="false" resizable="false" showHeader="false">
@@ -43,12 +44,13 @@
 			</h:panelGrid>
 
 			<h:panelGrid columns="3">
-				<p:commandButton value="Novo"
-					actionListener="#{produtoBean.novo}"
-					update=":frmProdutosCadastro" />
+				<p:commandButton value="Novo" actionListener="#{produtoBean.novo}"
+					rendered="#{produtoBean.admin}" update=":frmProdutosCadastro" />
 				<p:commandButton value="Salvar"
 					actionListener="#{produtoBean.salvar}"
+					rendered="#{produtoBean.admin}"
 					update=":frmProdutosCadastro :frmProdutosListagem:tblProdutos :msgGlobal" />
+				<p:commandButton value="Sair" actionListener="#{usuarioBean.logout}" />
 			</h:panelGrid>
 		</h:form>
 

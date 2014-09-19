@@ -14,10 +14,10 @@ import br.com.projeto.model.Produto;
 import br.com.projeto.util.ProjetoUtil;
 import br.com.projeto.util.WebUtil;
 
-@SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
 public class ProdutoBean implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private Produto produto;
 	private String pesquisa;
 	private LazyDataModel<Produto> produtosLDM;
@@ -68,5 +68,9 @@ public class ProdutoBean implements Serializable {
 		} catch (ServiceException ex) {
 			WebUtil.adicionarMensagemErro(ex.getMessage());
 		}
+	}
+
+	public boolean isAdmin() {
+		return true;
 	}
 }
