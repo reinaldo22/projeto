@@ -27,7 +27,6 @@ release.properties
 ###########
 # ECLIPSE #
 ###########
-
 *.pydevproject
 .metadata
 .gradle
