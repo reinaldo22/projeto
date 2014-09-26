@@ -3,6 +3,7 @@ package br.com.projeto.model;
 public class Usuario {
 	private Long codigo;
 	private String email;
+	private String nome;
 	private String senha;
 	
 	public Long getCodigo() {
