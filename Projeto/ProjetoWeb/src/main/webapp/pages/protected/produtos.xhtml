@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Drogaria</title>
+</h:head>
+
+<h:body>
+	<p:growl id="msgGlobal" sticky="true" />
+	
+	<p:panel>
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage library="imagens" name="ajaxloadingbar.gif" />
+		</p:dialog>
+
+		<h:form id="frmProdutosCadastro">
+			<h:panelGrid id="pnlProdutosCadastro" columns="2">
+				<p:outputLabel value="Código:" />
+				<p:inputText value="#{produtoBean.produto.codigo}" disabled="true" />
+
+				<p:outputLabel value="Descrição:" />
+				<p:inputText value="#{produtoBean.produto.descricao}">
+					<f:validateBean />
+				</p:inputText>
+
+				<p:outputLabel value="Preço:" />
+				<p:inputText value="#{produtoBean.produto.preco}">
+					<f:validateBean />
+				</p:inputText>
+
+				<p:outputLabel value="Quantidade:" />
+				<p:inputText value="#{produtoBean.produto.quantidade}">
+					<f:validateBean />
+				</p:inputText>
+			</h:panelGrid>
+
+			<h:panelGrid columns="3">
+				<p:commandButton value="Novo" actionListener="#{produtoBean.novo}"
+					rendered="#{produtoBean.admin}" update=":frmProdutosCadastro" />
+				<p:commandButton value="Salvar"
+					actionListener="#{produtoBean.salvar}"
+					rendered="#{produtoBean.admin}"
+					update=":frmProdutosCadastro :frmProdutosListagem:tblProdutos :msgGlobal" />
+				<p:commandButton value="Sair" actionListener="#{usuarioBean.logout}" />
+			</h:panelGrid>
+		</h:form>
+
+		<p:separator />
+
+		<h:form id="frmProdutosListagem">
+			<h:panelGrid columns="3">
+				<p:outputLabel value="Código/Descrição:" />
+				<p:inputText value="#{produtoBean.pesquisa}" />
+				<p:commandButton value="Buscar" action="#{produtoBean.buscar}"
+					update="tblProdutos :msgGlobal" />
+			</h:panelGrid>
+
+
+			<p:dataTable id="tblProdutos" value="#{produtoBean.produtosLDM}"
+				var="produto" lazy="true" paginator="true" rows="10"
+				selectionMode="single" selection="#{produtoBean.produto}"
+				rowKey="#{produto.codigo}"
+				emptyMessage="Nenhum registro encontrado.">
+
+				<p:ajax event="rowSelect" update=":frmProdutosCadastro" />
+
+				<p:column headerText="Código">
+					<h:outputText value="#{produto.codigo}" />
+				</p:column>
+				<p:column headerText="Descrição">
+					<h:outputText value="#{produto.descricao}" />
+				</p:column>
+				<p:column headerText="Preço">
+					<h:outputText value="#{produto.preco}" />
+				</p:column>
+				<p:column headerText="Quantidade">
+					<h:outputText value="#{produto.quantidade}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</p:panel>
+</h:body>
+</html>
