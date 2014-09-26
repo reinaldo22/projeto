@@ -13,10 +13,9 @@ public class PSTUtil {
 		if (conexao != null) {
 			try {
 				conexao.close();
-				logger.info(ProjetoUtil.getMessage("pstutil.conexao.fechar"));
+				logger.info("Conexão encerrada com sucesso");
 			} catch (SQLException ex) {
-				logger.warning(ProjetoUtil
-						.getMessage("pstutil.conexao.fechar.erro"));
+				logger.warning("Ocorreu um erro ao tentar fechar uma conexão");
 			}
 		}
 	}
@@ -25,10 +24,9 @@ public class PSTUtil {
 		if (comando != null) {
 			try {
 				comando.close();
-				logger.info(ProjetoUtil.getMessage("pstutil.declaracao.fechar"));
+				logger.info("PreparedStatement encerrado com sucesso");
 			} catch (SQLException ex) {
-				logger.warning(ProjetoUtil
-						.getMessage("pstutil.declaracao.fechar.erro"));
+				logger.warning("Ocorreu um erro ao tentar liberar um recurso do tipo PreparedStatement");
 			}
 		}
 	}
@@ -37,10 +35,9 @@ public class PSTUtil {
 		if (resultado != null) {
 			try {
 				resultado.close();
-				logger.info(ProjetoUtil.getMessage("pstutil.resultado.fechar"));
+				logger.info("ResultSet encerrado com sucesso");
 			} catch (SQLException ex) {
-				logger.warning(ProjetoUtil
-						.getMessage("pstutil.resultado.fechar.erro"));
+				logger.warning("Ocorreu um erro ao tentar liberar um recurso do tipo ResultSet");
 			}
 		}
 	}

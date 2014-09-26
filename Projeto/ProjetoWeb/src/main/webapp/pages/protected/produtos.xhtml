@@ -10,10 +10,9 @@
 </h:head>
 
 <h:body>
+	<p:growl id="msgGlobal" sticky="true" />
+	
 	<p:panel>
-		<p:messages id="msgGlobal" showSummary="true" showDetail="false"
-			closable="true" />
-
 		<p:ajaxStatus onstart="PF('statusDialog').show()"
 			onsuccess="PF('statusDialog').hide()" />
 

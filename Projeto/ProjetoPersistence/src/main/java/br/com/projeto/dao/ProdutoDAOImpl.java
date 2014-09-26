@@ -12,12 +12,11 @@ import br.com.projeto.excecao.PSTException;
 import br.com.projeto.factory.ConnectionFactory;
 import br.com.projeto.model.Produto;
 import br.com.projeto.util.PSTUtil;
-import br.com.projeto.util.ProjetoUtil;
 
 public class ProdutoDAOImpl implements ProdutoDAO {
 	private static Logger logger = Logger.getLogger(ProdutoDAOImpl.class
 			.getName());
-	
+
 	@Override
 	public List<Produto> listar(int primeiro, int tamanho) throws PSTException {
 		StringBuilder sql = new StringBuilder();
@@ -54,11 +53,12 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 
 				produtos.add(produto);
 			}
-			
-			logger.info(ProjetoUtil.getMessage("dao.produto.listar"));
+
+			logger.info("Listagem dos produtos realizada com sucesso");
 		} catch (SQLException ex) {
 			throw new PSTException(
-					ProjetoUtil.getMessage("dao.produto.listar.erro"), ex);
+					"Ocorreu um erro ao tentar obter a listagem de produtos",
+					ex);
 		} finally {
 			PSTUtil.fechar(resultado);
 			PSTUtil.fechar(comando);
@@ -88,11 +88,11 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 			if (resultado.next()) {
 				total = resultado.getInt(1);
 			}
-			
-			logger.info(ProjetoUtil.getMessage("dao.produto.contar"));
+
+			logger.info("Total de produtos obtido com sucesso");
 		} catch (SQLException ex) {
 			throw new PSTException(
-					ProjetoUtil.getMessage("dao.produto.contar.erro"), ex);
+					"Ocorreu um erro ao tentar obter o total de produtos", ex);
 		} finally {
 			PSTUtil.fechar(resultado);
 			PSTUtil.fechar(comando);
@@ -121,11 +121,11 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 			comando.setShort(3, produto.getQuantidade());
 
 			comando.executeUpdate();
-			
-			logger.info(ProjetoUtil.getMessage("dao.produto.inserir"));
+
+			logger.info("Produto inserido com sucesso");
 		} catch (SQLException ex) {
 			throw new PSTException(
-					ProjetoUtil.getMessage("dao.produto.inserir.erro"), ex);
+					"Ocorreu um erro ao tentar inserir um produto", ex);
 		} finally {
 			PSTUtil.fechar(comando);
 			PSTUtil.fechar(conexao);
@@ -152,11 +152,11 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 			comando.setLong(4, produto.getCodigo());
 
 			comando.executeUpdate();
-			
-			logger.info(ProjetoUtil.getMessage("dao.produto.editar"));
+
+			logger.info("Produto editado com sucesso");
 		} catch (SQLException ex) {
 			throw new PSTException(
-					ProjetoUtil.getMessage("dao.produto.editar.erro"), ex);
+					"Ocorreu um erro ao tentar editar um produto", ex);
 		} finally {
 			PSTUtil.fechar(comando);
 			PSTUtil.fechar(conexao);
@@ -179,11 +179,11 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 			comando.setLong(1, codigo);
 
 			comando.executeUpdate();
-			
-			logger.info(ProjetoUtil.getMessage("dao.produto.excluir"));
+
+			logger.info("Produto excluído com sucesso");
 		} catch (SQLException ex) {
 			throw new PSTException(
-					ProjetoUtil.getMessage("dao.produto.excluir.erro"), ex);
+					"Ocorreu um erro ao tentar excluir um produto", ex);
 		} finally {
 			PSTUtil.fechar(comando);
 			PSTUtil.fechar(conexao);

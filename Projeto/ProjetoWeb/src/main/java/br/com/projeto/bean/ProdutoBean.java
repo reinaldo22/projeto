@@ -11,7 +11,6 @@ import br.com.projeto.client.ProdutoService;
 import br.com.projeto.datamodel.ProdutoDataModel;
 import br.com.projeto.excecao.ServiceException;
 import br.com.projeto.model.Produto;
-import br.com.projeto.util.ProjetoUtil;
 import br.com.projeto.util.WebUtil;
 
 @ManagedBean
@@ -63,8 +62,7 @@ public class ProdutoBean implements Serializable {
 					.getNamedObject(ProdutoService.NAME);
 			service.inserir(produto);
 			novo();
-			WebUtil.adicionarMensagemSucesso(ProjetoUtil
-					.getMessage("bean.produto.salvar"));
+			WebUtil.adicionarMensagemSucesso("Produto salvo com sucesso");
 		} catch (ServiceException ex) {
 			WebUtil.adicionarMensagemErro(ex.getMessage());
 		}
