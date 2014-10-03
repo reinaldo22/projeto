@@ -26,8 +26,8 @@ public class WebUtil {
 	public static Object getNamedObject(String name){
 		Properties properties = new Properties();
 		properties.put("java.naming.factory.initial", "org.apache.openejb.client.RemoteInitialContextFactory");
-		//properties.put("java.naming.provider.url", "http://192.168.0.45:8080/tomee/ejb");
-		properties.put("java.naming.provider.url", "http://131.0.86.10:8084/tomee/ejb");
+		properties.put("java.naming.provider.url", "http://127.0.0.1:8080/tomee/ejb");
+		// properties.put("java.naming.provider.url", "http://131.0.86.10:8084/tomee/ejb");
 		
 		Object namedObject = null;
 		try {

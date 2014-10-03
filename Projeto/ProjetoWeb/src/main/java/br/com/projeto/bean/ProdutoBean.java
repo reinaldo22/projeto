@@ -53,7 +53,13 @@ public class ProdutoBean implements Serializable {
 	}
 
 	public void buscar() {
-		produtosLDM = new ProdutoDataModel();
+		try {
+			if(produtosLDM == null){
+				produtosLDM = new ProdutoDataModel();
+			}
+		} catch (ServiceException ex) {
+			WebUtil.adicionarMensagemErro(ex.getMessage());
+		}
 	}
 
 	public void salvar() {

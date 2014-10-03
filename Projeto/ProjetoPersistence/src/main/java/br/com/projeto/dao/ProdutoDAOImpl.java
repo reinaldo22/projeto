@@ -18,7 +18,7 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 			.getName());
 
 	@Override
-	public List<Produto> listar(int primeiro, int tamanho) throws PSTException {
+	public List<Produto> listar(int primeiro, int tamanho) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT p.codigo, p.descricao, p.preco, p.quantidade ");
 		sql.append("FROM produtos p ");
@@ -69,7 +69,7 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 	}
 
 	@Override
-	public int contar() throws PSTException {
+	public int contar() {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT COUNT(*) ");
 		sql.append("FROM produtos p ");
@@ -103,7 +103,7 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 	}
 
 	@Override
-	public void inserir(Produto produto) throws PSTException {
+	public void inserir(Produto produto) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("INSERT INTO produtos ");
 		sql.append("(descricao, preco, quantidade) ");
@@ -133,7 +133,7 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 	}
 
 	@Override
-	public void editar(Produto produto) throws PSTException {
+	public void editar(Produto produto) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("UPDATE produtos ");
 		sql.append("SET descricao = ?, preco = ?, quantidade = ? ");
@@ -164,7 +164,7 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 	}
 
 	@Override
-	public void excluir(Long codigo) throws PSTException {
+	public void excluir(Long codigo) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("DELETE FROM produtos ");
 		sql.append("WHERE codigo = ? ");

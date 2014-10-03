@@ -1,7 +1,7 @@
 package br.com.projeto.excecao;
 
 @SuppressWarnings("serial")
-public class PSTException extends Exception {
+public class PSTException extends RuntimeException {
 
 	public PSTException() {
 		super();

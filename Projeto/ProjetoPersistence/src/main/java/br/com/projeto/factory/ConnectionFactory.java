@@ -4,38 +4,50 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
-import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.tomcat.jdbc.pool.DataSource;
+import org.apache.tomcat.jdbc.pool.PoolProperties;
 
 public class ConnectionFactory {
 	private static Logger logger = Logger.getLogger(ConnectionFactory.class
 			.getName());
-	private static BasicDataSource dataSource = setUp();
+	private static DataSource dataSource;
 
-	private static BasicDataSource setUp() {
-		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setUrl("jdbc:mysql://192.168.0.72:3306/drogaria");
-		dataSource.setUsername("srdelfino");
-		dataSource.setPassword("q1w2e3r4");
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+	static {
+		PoolProperties p = new PoolProperties();
+		p.setUrl("jdbc:mysql://127.0.0.1:3306/drogaria");
+		p.setDriverClassName("com.mysql.jdbc.Driver");
+		p.setUsername("srdelfino");
+		p.setPassword("q1w2e3r4");
+		p.setJmxEnabled(true);
+		p.setTestWhileIdle(false);
+		p.setTestOnBorrow(true);
+		p.setValidationQuery("SELECT 1");
+		p.setTestOnReturn(false);
+		p.setValidationInterval(30000);
+		p.setTimeBetweenEvictionRunsMillis(30000);
+		p.setMaxActive(100);
+		p.setInitialSize(10);
+		p.setMaxWait(10000);
+		p.setRemoveAbandonedTimeout(60);
+		p.setMinEvictableIdleTimeMillis(30000);
+		p.setMinIdle(10);
+		p.setLogAbandoned(true);
+		p.setRemoveAbandoned(true);
+		p.setJdbcInterceptors("org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;"
+				+ "org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer");
 
-		dataSource.setInitialSize(1);
-		dataSource.setMinIdle(1);
-		dataSource.setMaxIdle(10);
-		dataSource.setMaxTotal(10);
+		dataSource = new DataSource();
+		dataSource.setPoolProperties(p);
 
 		logger.info("Pool de conexão configurado com sucesso");
-
-		return dataSource;
 	}
 
-	public static Connection getConnection() {
+	public static Connection getConnection() throws SQLException {
 		Connection conexao = null;
-		try {
-			conexao = dataSource.getConnection();
-			logger.info("Conexão obtida com sucesso");
-		} catch (SQLException ex) {
-			logger.warning("Ocorreu um erro ao tentar obter uma conexão");
-		}
+
+		conexao = dataSource.getConnection();
+		logger.info("Conexão obtida com sucesso");
+
 		return conexao;
 	}
 }

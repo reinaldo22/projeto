@@ -42,7 +42,7 @@ public class ProdutoDataModel extends LazyDataModel<Produto> {
 			
 			this.setRowCount(service.contar());
 		} catch (ServiceException ex) {
-			WebUtil.adicionarMensagemErro(ex.getMessage());
+			throw ex;
 		}
 		return produtos;
 	}
